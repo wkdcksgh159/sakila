@@ -15,26 +15,26 @@ import sakila.address.model.Country;
 import sakila.address.model.CountryDao;
 
 
-@WebServlet("/SelectCountryList")
+@WebServlet("/address/selectCountryList")
 public class SelectCountryList extends HttpServlet {
-	//DaoÀÇ selectCountryList ¸Þ¼­µå¸¦ »ç¿ëÇÏ±â À§ÇØ °´Ã¼ ¼±¾ð
+	//Daoï¿½ï¿½ selectCountryList ï¿½Þ¼ï¿½ï¿½å¸¦ ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
 	private CountryDao countryDao;
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//¼­ºí¸´À¸·Î ³Ñ¾î¿À³ª È®ÀÎ
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 		System.out.println("/address/selectCountryList");
-		//ÀÀ´äÇü½ÄÀ» application/json ·Î ÁöÁ¤
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ application/json ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		response.setContentType("application/json;charset=UTF-8");
 		
-		//ÆäÀÌÂ¡À» À§ÇØ ºÒ·¯¿Â currentPage(ÇöÀçÆäÀÌÁö) °ªÀ» º¯¼ö¿¡ ÀúÀå
+		//ï¿½ï¿½ï¿½ï¿½Â¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ currentPage(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		
-		//Dao ÀÎ½ºÅÏ½ºÈ­ ¹× selectCountryList ¸Þ¼­µå ºÒ·¯¿À±â
+		//Dao ï¿½Î½ï¿½ï¿½Ï½ï¿½È­ ï¿½ï¿½ selectCountryList ï¿½Þ¼ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½
 		countryDao = new CountryDao();
 		List<Country> list = countryDao.selectCountryList(currentPage);
-		//list°ªÀ» json À¸·Î º¸³»±âÀ§ÇØ °´Ã¼¼±¾ð ¹× º¯¼ö¿¡ ÀúÀå
+		//listï¿½ï¿½ï¿½ï¿½ json ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		Gson gson = new Gson();
 		String jsonStr = gson.toJson(list);
-		//jsonStr °ªÀ» ÀÀ´ä
+		//jsonStr ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		response.getWriter().write(jsonStr);
 		
 	}

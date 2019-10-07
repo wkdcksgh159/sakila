@@ -12,20 +12,20 @@ import sakila.address.model.Country;
 import sakila.address.model.CountryDao;
 
 
-@WebServlet("/InsertCountry")
+@WebServlet("/address/insertCountry")
 public class InsertCountry extends HttpServlet {
-	//DaoÀÇ °ª¿¡ ÀÔ·Â¹ÞÀº country°ªÀ» ³Ö±âÀ§ÇØ °´Ã¼¼±¾ð
+	//Daoï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·Â¹ï¿½ï¿½ï¿½ countryï¿½ï¿½ï¿½ï¿½ ï¿½Ö±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½
 	private CountryDao countryDao;
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		//ÀÔ·Â¹ÞÀº°ª º¯¼ö¿¡ÀúÀå + µð¹ö±ë
+		//ï¿½Ô·Â¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ + ï¿½ï¿½ï¿½ï¿½ï¿½
 		String country = request.getParameter("country");
 		System.out.println("country : "+country);
 		
-		//Country °´Ã¼ ¼±¾ð ¹× ÀÔ·Â¹ÞÀº°ª country ÀúÀå
+		//Country ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ô·Â¹ï¿½ï¿½ï¿½ï¿½ï¿½ country ï¿½ï¿½ï¿½ï¿½
 		Country c = new Country();
 		c.setCountry(country);
-		//Dao ÀÎ½ºÅÏ½ºÈ­ ¹× ÀÔ·Â¹ÞÀº°ªÀ» ÀúÀåÇÏ´Â insertCountry¸Þ¼Òµå ºÒ·¯¿È
+		//Dao ï¿½Î½ï¿½ï¿½Ï½ï¿½È­ ï¿½ï¿½ ï¿½Ô·Â¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ insertCountryï¿½Þ¼Òµï¿½ ï¿½Ò·ï¿½ï¿½ï¿½
 		countryDao = new CountryDao();
 		countryDao.insertCountry(c);
 	}

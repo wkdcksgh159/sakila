@@ -13,20 +13,20 @@ import com.google.gson.Gson;
 import sakila.address.model.CountryDao;
 
 
-@WebServlet("/SelectCountryCount")
+@WebServlet("/address/selectCountryCount")
 public class SelectCountryCount extends HttpServlet {
-	//DaoÀÇ ¸Þ¼Òµå¸¦ »ç¿ëÇÏ±â À§ÇØ °´Ã¼ »ý¼º
+	//Daoï¿½ï¿½ ï¿½Þ¼Òµå¸¦ ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
 	private CountryDao countryDao;
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//ÀÀ´äÇü½ÄÀ» application/json ·Î ÁöÁ¤
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ application/json ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		response.setContentType("application/json;charset=UTF-8");
-		//Dao°´Ã¼ ÀÎ½ºÅÏ½ºÈ­ ¹× selectCount¸Þ¼ÒµåÀÇ °ªÀ» º¯¼ö count ¿¡ ÀúÀå
+		//Daoï¿½ï¿½Ã¼ ï¿½Î½ï¿½ï¿½Ï½ï¿½È­ ï¿½ï¿½ selectCountï¿½Þ¼Òµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ count ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		countryDao = new CountryDao();
 		int count = countryDao.selectCount();
-		//Gson°´Ã¼¼±¾ð ¹× count°ªÀ» json Çü½ÄÀ¸·Î º¯È¯ÇÑ°ªÀ» jsonCountº¯¼ö¿¡ ÀúÀå 
+		//Gsonï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ countï¿½ï¿½ï¿½ï¿½ json ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ñ°ï¿½ï¿½ï¿½ jsonCountï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
 		Gson gson = new Gson();
 		String jsonCount = gson.toJson(count);
-		//jsonCountÀÇ °ª¸¸À» ÀÀ´ä
+		//jsonCountï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		response.getWriter().write(jsonCount);
 	}
 
