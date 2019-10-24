@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>sakila index</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+	body {
+		padding: 0;
+		margin: 0;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+		background-position: 0 0;
+		background-repeat: no-repeat;
+		background-attachment: fixed;
+		background-size: cover;
+		position: relative;
+		overflow-y: auto;
+		display:inline-block
+	}
+	
+	#aside {
+		width: 200px;
+		height: 3000px;
+		position: fixed;
+		background: orange;
+		overflow: hidden;
+		float: left;
+	}
+	
+	#section {
+		margin-left: 300px;
+		background: white;
+	}
+	
+</style>
+</head>
+<body>
+	<div id="aside">
+	<!-- aside.html -->
+	</div>
+	<div id="section">
+		<!-- City 제목 -->
+		<h1>CITY</h1>
+		<!-- 도시를 추가 -->
+		<h2>City 추가</h2>
+		<div>
+			<div class = "dan">
+				country 목록 : <select id="countryList"></select>
+			</div>
+			<div>
+				<table>
+					<tr>
+						<td>country_id : </td>
+						<td><input type="text" id="countryId"></td>
+					</tr>
+					<tr>
+						<td>city : </td>
+						<td><input typr="text" id="city"></td>
+					</tr>
+					<tr>
+						<td>
+							<button type="button" id="addCity">add City</button>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<!-- 도시 목록 보기 -->
+		<h2>City 목록</h2>
+		<div>
+			<table border="1">
+				<thead>
+					<tr>
+						<th>city_id</th>
+						<th>city</th>
+						<th>country_id</th>
+						<th>country</th><!-- city 와 country 테이블 INNER JOIN -->
+						<th>last_update</th>
+					</tr>
+				</thead>
+				<tbody id="list">
+					
+				</tbody>
+			</table>
+			<button type="button" id="preBtn">이전</button>
+			<button type="button" id="nextBtn">다음</button>
+		</div>
+	</div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- aside.html script -->
+<script>
+		// aside.html include
+		$("#aside").load("/sakila/aside.html");
+</script>
+<!-- Main script -->
+<script>
+	//Country의 전체목록을 가져오는 서블릿 실행
+	$.ajax({
+		url:"/sakila/selectCountryList",
+		method:"POST",
+		success:function(json){
+			console.log(json);
+			$("#countryList").empty();
+			for(let c of json){
+				$("#countryList").append("<option value='"+c.countryId+"'>"+c.country+"</option>");
+			}
+		}
+	});
+	//#은 id
+	//#countryList 의 값이 바뀌면 #countryId 의 밸류값도 #countryList밸류값과 똑같이바뀜
+	$("#countryList").change(function(){
+		$("#countryId").val($("#countryList").val());
+	});
+	//addCity 버튼 클릭시 함수실행
+	$("#addCity").click(function(){
+		console.log("addCity 버튼 실행!");
+		console.log("city.value : "+$("#city").val());
+		//countryId의 밸류값 혹은 city의 밸류값이 없을경우 경고문 발생
+		if($("#countryId").val() === "" || $("#city").val() === ""){
+			alert("입력......");
+		} else {
+			//해당 countryId와 city의 값을 가진 리스트를 출력하기 위해 countryId값과 city값을 서블릿으로보냄
+			$.ajax({
+				url:"/sakila/address/insertCity",
+				method:"POST",
+				data:{"countryId":$("#countryId").val(), "city":$("#city").val()},
+				success:function(){
+					console.log("insertCity 서블릿 요청 확인!");
+					currentPage = 1;
+					//요청 성공 후 리스트 가져옴
+					//첫번째 페이지를 가져오기 위해 현재페이지에 해당하는 currentPage 를 보냄
+					$("#list").empty();
+					$.ajax({
+						url:"/sakila/address/selectCityList",
+						method:"POST",
+						data:{"currentPage":currentPage},
+						success:function(json){
+							console.log(json);
+							for(let c of json){
+								let html = "<tr><td>"+c.cityId
+											+"</td><td>"+c.city
+											+"</td><td>"+c.country.countryId
+											+"</td><td>"+c.country.country
+											+"</td><td>"+c.lastUpdate
+											+"</td></tr>";
+								$("#list").append(html);
+							}
+						}
+					});
+				}
+			});
+		}
+	});
+	
+	//cityList 출력
+	let currentPage = 1;
+	
+	$("#list").empty();
+	$.ajax({
+		url:"/sakila/address/selectCityList",
+		method:"POST",
+		data:{"currentPage":currentPage},
+		success:function(json){
+			console.log(json);
+			for(let i = 0; i<json.length; i+=1){
+				let html = "<tr><td>"+json[i].cityId+""
+			}
+		}
+	});
+</script>
+</html>
