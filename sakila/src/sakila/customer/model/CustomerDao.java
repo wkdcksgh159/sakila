@@ -10,12 +10,13 @@ import java.util.List;
 import sakila.db.DBHelper;
 
 public class CustomerDao {
-	//customer List
-	public List<Customer> selectCustomerListAll(Connection conn) throws Exception{
+	//customer 전체목록 List
+	public List<Customer> selectCustomerListAll(Connection conn){
 		System.out.println("selectCustomerListAll Dao 실행 ----------------");
 		List<Customer> list = new ArrayList<Customer>();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
+		//customer 전체목록 불러오는 쿼리
 		String sql = "SELECT customer_id, store_id, first_name, last_name, email, address_id, active, create_date, last_update" + 
 				"FROM customer" + 
 				"ORDER BY customer_id DESC" + 

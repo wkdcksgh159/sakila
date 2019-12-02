@@ -116,24 +116,52 @@ body {
 			</fieldset>
 			<button type="button" id="addCustomer">고객 입력</button>
 		</form>
+		<table border="1">
+			<thead>
+				<tr>
+					<th>CustomerId</th>
+					<th>StoreId</th>
+					<th>FirstName</th>
+					<th>LastName</th>
+					<th>Email</th>
+					<th>AddressId</th>
+					<th>Active</th>
+					<th>CreateDate</th>
+					<th>LastUpdate</th>
+				</tr>
+			</thead>
+			<tbody id="customerListAll">
+				
+			</tbody>
+		</table>
 	</div>
 </body>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
 	//aside.html include
 	$("#aside").load("/sakila/aside.html");
 </script>
 
 <script>
-
-	$.ajax({
-		url:"",
+	$.ajax({//Customer select
+		url:"/SelectCustomerListAll",
 		method:"post",
-		success:function(){
-			$(json).each(function(){
-				
-			})
+		success:function(json){
+			console.log("SelectCustomerListAll 요청 성공!");
+			console.log(json);
+			$("#customerListAll").empty();
+			$(json).each(function(index,item){//index를 매게변수,json에 크기만큼 반복
+				temp = "<tr><td>"+item.customerId+"</td>";
+				temp += "<td>"+item.storeId+"</td>";
+				temp += "<td>"+item.firstName+"</td>";
+				temp += "<td>"+item.lastName+"</td>";
+				temp += "<td>"+item.email+"</td>";
+				temp += "<td>"+item.addressId+"</td>";
+				temp += "<td>"+item.active+"</td>";
+				temp += "<td>"+item.createDate+"</td>";
+				temp += "<td>"+item.lastUpdate+"</td></tr>";
+				$("#customerListAll").append(temp);
+			});
 		}
 	});
 

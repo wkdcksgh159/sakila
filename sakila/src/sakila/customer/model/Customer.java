@@ -10,12 +10,6 @@ public class Customer {
 	private int active;
 	private String createDate;
 	private String lastUpdate;
-	public String getLastUpdate() {
-		return lastUpdate;
-	}
-	public void setLastUpdate(String lastUpdate) {
-		this.lastUpdate = lastUpdate;
-	}
 	public int getCustomerId() {
 		return customerId;
 	}
@@ -63,6 +57,12 @@ public class Customer {
 	}
 	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
+	}
+	public String getLastUpdate() {
+		return lastUpdate;
+	}
+	public void setLastUpdate(String lastUpdate) {
+		this.lastUpdate = lastUpdate;
 	}
 	@Override
 	public String toString() {
