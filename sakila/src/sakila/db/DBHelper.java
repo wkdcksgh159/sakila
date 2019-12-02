@@ -1,41 +1,28 @@
 package sakila.db;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class DBHelper {
 	public static Connection getConnection() throws Exception {
+		//db접속
 		Class.forName("org.mariadb.jdbc.Driver");
-		Connection conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/sakila", "root", "java1234");
+		Connection conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/sakila","root","java1234");
 		return conn;
 	}
-
-	public static void close(ResultSet rs, Statement stmt, Connection conn) {
-		if (rs != null) {
-			try {
+	//종료method
+	public static void close(ResultSet rs,PreparedStatement stmt,Connection conn) {
+		try {
+			if(rs!=null) {
 				rs.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
 			}
-		}
-
-		if (stmt != null) {
-			try {
+			if(stmt!=null) {
 				stmt.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
 			}
-		}
-
-		if (conn != null) {
-			try {
+			if(conn!=null) {
 				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
 			}
+		}catch(Exception e) {
+			e.printStackTrace();
 		}
 	}
 }

@@ -16,27 +16,24 @@ import sakila.address.model.Country;
 import sakila.address.model.CountryDao;
 
 /**
- * Servlet implementation class SelectCountryList
+ * Servlet implementation class SelectCountryListAll
  */
-@WebServlet("/address/selectCountryList")
-public class SelectCountryList extends HttpServlet {
+@WebServlet("/selectCountryListAll")
+public class SelectCountryListAll extends HttpServlet {
 	private CountryDao countryDao;
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		response.setContentType("application/json");
-		System.out.println("currentPage :>>"+request.getParameter("currentPage"));
-		int currentPage = 1;
-		if(request.getParameter("currentPage")!=null){
-			currentPage = Integer.parseInt(request.getParameter("currentPage"));
-		}
-		
+		//json 문자열타입으로 리턴
+		response.setContentType("application/json;charset=utf-8");
 		countryDao = new CountryDao();
-		List<Country> list = new ArrayList<Country>();
-		list = countryDao.selectCountryList();//currentPage
+		List<Country> list = countryDao.selectCountryListAll();
+		System.out.println("Servlet listAll"+list);
+		
 		Gson gson = new Gson();
-		String jsonList = gson.toJson(list);
-		System.out.println(jsonList);
-		response.getWriter().write(jsonList);
+		//List 타입에 list를 gson에 String타입 으로 변환
+		String jsonStr = gson.toJson(list);
+		//write응답코드로 html에 jsonList를 응답
+		response.getWriter().write(jsonStr);
+		
 	}
 
 }

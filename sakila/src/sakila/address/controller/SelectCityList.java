@@ -1,6 +1,7 @@
 package sakila.address.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -17,23 +18,23 @@ import sakila.address.model.CityDao;
 /**
  * Servlet implementation class SelectCityList
  */
-@WebServlet("/address/selectCityList")
+@WebServlet("/address/SelectCityList")
 public class SelectCityList extends HttpServlet {
-	private CityDao cityDao;
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//json 타입으로반환함
-		response.setContentType("application/json");
-		//페이징
-		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
-		
-		cityDao = new CityDao();
-		List<City> list = cityDao.selectCityList(currentPage);
-		
-		//list를 자바스크립트의 객체타입으로 보내기 위해 Gson 사용
+		System.out.println("Servlet 도착");
+		response.setContentType("Application/json");
+		int currentPage=1;
+		if(request.getParameter("currentPage")!=null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		CityDao cityDao = new CityDao();
+		List<City> list = new ArrayList<City>();
+		list = cityDao.selectCityList(currentPage);
+		System.out.println("Servlet list:>>"+list);
 		Gson gson = new Gson();
-		String json = gson.toJson(list);
-		//json타입으로 변환한 list를 클라이언트로 보냄
-		response.getWriter().write(json);
+		String jsonList = gson.toJson(list);
+		System.out.println("Servlet JsonList"+jsonList);
+		response.getWriter().write(jsonList);
 	}
 
 }

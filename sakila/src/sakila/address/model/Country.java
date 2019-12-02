@@ -4,7 +4,6 @@ public class Country {
 	private int countryId;
 	private String country;
 	private String lastUpdate;
-	
 	public int getCountryId() {
 		return countryId;
 	}
@@ -27,5 +26,4 @@ public class Country {
 	public String toString() {
 		return "Country [countryId=" + countryId + ", country=" + country + ", lastUpdate=" + lastUpdate + "]";
 	}
-	
 }

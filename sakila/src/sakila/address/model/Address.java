@@ -9,12 +9,13 @@ public class Address {
 	private String postalCode;
 	private String phone;
 	private String lastUpdate;
+	private Country country;
 	
-	public int getAddressId() {
-		return addressId;
+	public Country getCountry() {
+		return country;
 	}
-	public void setAddressId(int addressId) {
-		this.addressId = addressId;
+	public void setCountry(Country country) {
+		this.country = country;
 	}
 	public String getAddress() {
 		return address;
@@ -40,17 +41,24 @@ public class Address {
 	public void setCity(City city) {
 		this.city = city;
 	}
-	public String getPostalCode() {
-		return postalCode;
-	}
-	public void setPostalCode(String postalCode) {
-		this.postalCode = postalCode;
-	}
+	
 	public String getPhone() {
 		return phone;
 	}
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+	public int getAddressId() {
+		return addressId;
+	}
+	public void setAddressId(int addressId) {
+		this.addressId = addressId;
+	}
+	public String getPostalCode() {
+		return postalCode;
+	}
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
 	}
 	public String getLastUpdate() {
 		return lastUpdate;
@@ -58,5 +66,12 @@ public class Address {
 	public void setLastUpdate(String lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
+	@Override
+	public String toString() {
+		return "Address [addressId=" + addressId + ", address=" + address + ", address2=" + address2 + ", district="
+				+ district + ", city=" + city + ", postalCode=" + postalCode + ", phone=" + phone + ", lastUpdate="
+				+ lastUpdate + "]";
+	}
+	
 	
 }

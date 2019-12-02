@@ -29,5 +29,9 @@ public class City {
 	public void setLastUpdate(String lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
-	
+	@Override
+	public String toString() {
+		return "City [cityId=" + cityId + ", city=" + city + ", country=" + country + ", last_update=" + lastUpdate
+				+ "]";
+	}
 }

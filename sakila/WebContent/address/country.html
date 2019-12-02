@@ -1,68 +1,66 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>country</title>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-	body {
-		padding: 0;
-		margin: 0;
-		width: 100%;
-		height: 100%;
-		overflow: hidden;
-		background-position: 0 0;
-		background-repeat: no-repeat;
-		background-attachment: fixed;
-		background-size: cover;
-		position: relative;
-		overflow-y: auto;
-		display:inline-block
-	}
-	
-	#aside {
-		width: 200px;
-		height: 3000px;
-		position: fixed;
-		background: orange;
-		overflow: hidden;
-		float: left;
-	}
-	
-	#section {
-		margin-left: 300px;
-		background: white;
-	}
-	
+body {
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	background-position: 0 0;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+	position: relative;
+	overflow-y: auto;
+}
+
+#aside {
+	width: 200px;
+	height: 3000px;
+	position: fixed;
+	background: orange;
+	overflow: hidden;
+	float: left;
+}
+
+#section {
+	margin-left: 300px;
+	margin-right: 500px;
+	margin-bottom: 100px;
+	background: white;
+}
 </style>
+<title>Insert title here</title>
 </head>
 <body>
+
 	<div id="aside">
-	
+		<!-- aside.html을 include -->
 	</div>
+	
 	<div id="section">
+		<h1>INDEX</h1>
 		<h1>Country 관리</h1>
 		<h2>Country 입력</h2>
 		<div>
 			<div>
-				<!-- 값을 입력받을 텍스트박스 생성 -->
-				country : <input type="text" id="country" value="">
+				country:<input type="text" id="country" value="">
 			</div>
 			<div>
-				<!-- 입력한값을 넘기기위한 버튼 생성 -->
-				<button type="button" id="addCountry">add country</button>
+				<button type="button" id="addCountry">add Country</button>
 			</div>
 		</div>
-		
+
 		<h2>country 목록</h2>
 		<div>
-			<table border="1">
+			<table border=1>
 				<thead>
-					<tr>
-						<th>country_id</th>
-						<th>country</th>
-						<th>last_update</th>
-					</tr>
+					<th>country_id</th>
+					<th>country</th>
+					<th>last_update</th>
 				</thead>
 				<tbody id="list">
 				</tbody>
@@ -71,186 +69,83 @@
 		<button type="button" id="preBtn">이전</button>
 		<button type="button" id="nextBtn">다음</button>
 	</div>
+
 </body>
-<!-- jQuery를 사용하기위해 주소입력 -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script>
-		// aside.html include
-		$("#aside").load("/sakila/aside.html");
-</script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	
 	<script>
-		//currentPage 생성 첫번째페이지 = 1;
-		let currentPage = 1;
-		//append로 인해 목록이 계속 추가되는걸 방지하기 위해 목록 비우기
-		$("#list").empty();
-		//데이터를 불러옴
-		$.ajax({
-			//selectCountryList 서블릿 불러오기
-			url : "/sakila/address/selectCountryList",
-			//post방식
-			method : "POST",
-			//currentPage 값을 currentPage 이름으로 보냄
-			data : {currentPage : currentPage},
-			//성공할 시 해당내용 실행
-			success : function(json) { //서블릿에서 json 파일로 저장해서 보낸것을 자바스크립트 객체로 변경
-				//로그 디버깅
-				console.log(json);
-				console.log("리스트 출력 성공!");
-				//json의 값을 순서대로 꺼내서 c에 넣음
-				for(let c of json){
-					//html 입력 table에 countryId, country, lastUpdate 출력
-					let html = "<tr><td>"+c.countryId+"</td><td>"
-								+c.country+"</td><td>"
-								+c.lastUpdate+"</td></tr>";
-					//list의 내부 끝에 html의 값 삽입
-					$("#list").append(html);
-				}
-			}
-		});
-		
-		$("#preBtn").click(function(){
-			//페이지 체크
-			if(currentPage === 1){
-				alert("현재 1페이지 입니다.");
-				return;
-			}
-			//이전페이지로
-			currentPage -= 1;
-			console.log("currentPage : "+currentPage);
-			
-			//append로 인해 목록이 계속 추가되는걸 방지하기 위해 목록 비우기
-			$("#list").empty();
-			//데이터를 불러옴
-			$.ajax({
-				//selectCountryList 서블릿 불러오기
-				url : "/sakila/address/selectCountryList",
-				//post방식
-				method : "POST",
-				//currentPage 값을 currentPage 이름으로 보냄
-				data : {currentPage : currentPage},
-				//성공할 시 해당내용 실행
-				success : function(json) { //서블릿에서 json 파일로 저장해서 보낸것을 자바스크립트 객체로 변경
-					//로그 디버깅
-					console.log(json);
-					console.log("이전페이지 이동 성공!");
-					//json의 값을 순서대로 꺼내서 c에 넣음
-					for(let c of json){
-						//html 입력 table에 countryId, country, lastUpdate 출력
-						let html = "<tr><td>"+c.countryId+"</td><td>"
-									+c.country+"</td><td>"
-									+c.lastUpdate+"</td></tr>";
-						//list의 내부 끝에 html의 값 삽입
-						$("#list").append(html);
-					}
-				}
-			});
-		});
-		
-		$("#nextBtn").click(function(){
-			//테이블의 전체 데이터 개수를 가져옴
-			let count = 0;
-			$.ajax({
-				url : "/sakila/address/selectCountryCount",
-				method : "POST",
-				async : false,
-				success : function(json){
-					console.log(json);
-					//문자형으로 넘어온 json 값을 숫자형으로 변환해서 저장
-					count = Number(json);
-				}
-			})
-			//마지막페이지 구하기 전체개수/페이지당보여줄개수 (Math.ceil : 소숫점 이하 올림)
-			let lastPage = Math.ceil(count/10);
-			console.log(lastPage);
-			if(currentPage === lastPage){
-				alert("마지막 페이지입니다");
-				return;
-			}
-			//다음페이지로
-			currentPage += 1;
-			console.log(currentPage);
-			
-			//append로 인해 목록이 계속 추가되는걸 방지하기 위해 목록 비우기
-			$("#list").empty();
-			//데이터를 불러옴
-			$.ajax({
-				//selectCountryList 서블릿 불러오기
-				url : "/sakila/address/selectCountryList",
-				//post방식
-				method : "POST",
-				//currentPage 값을 currentPage 이름으로 보냄
-				data : {currentPage : currentPage},
-				//성공할 시 해당내용 실행
-				success : function(json) { //서블릿에서 json 파일로 저장해서 보낸것을 자바스크립트 객체로 변경
-					//로그 디버깅
-					console.log(json);
-					console.log("다음페이지 이동 성공!");
-					//json의 값을 순서대로 꺼내서 c에 넣음
-					for(let c of json){
-						//html 입력 table에 countryId, country, lastUpdate 출력
-						let html = "<tr><td>"+c.countryId+"</td><td>"
-									+c.country+"</td><td>"
-									+c.lastUpdate+"</td></tr>";
-						//list의 내부 끝에 html의 값 삽입
-						$("#list").append(html);
-					}
-				}
-			});
-		});
-		
-		$("#addCountry").click(function(){
-			//버튼 클릭, 내용 확인
-			console.log("버튼 클릭!");
-			console.log("country.value : "+$("#country").val());
-			//country에 아무것도 입력하지 않았을경우 경고문 출력
-			if($("#country").val() === ""){
-				alert("country를 입력하세요");
-				return;
-			}
-			
-			//insertCountry 서블릿 실행
-			$.ajax({
-				//서블릿 주소 불러오기
-				url : "/sakila/address/insertCountry",
-				//POST 방식
-				method : "POST",
-				//#country의 값을 country 라는 이름으로 보냄
-				data : {country : $("#country").val()},
-				//입력성공후 리스트 가져옴
-				success : function(){
-					//성공 확인
-					console.log("나라 추가 성공!");
-					//리스트 첫페이지 출력
-					currentPage = 1;
-					
-					//append로 인해 목록이 계속 추가되는걸 방지하기 위해 목록 비우기
-					$("#list").empty();
-					//데이터를 불러옴
-					$.ajax({
-						//selectCountryList 서블릿 불러오기
-						url : "/sakila/address/selectCountryList",
-						//post방식
-						method : "POST",
-						//currentPage 값을 currentPage 이름으로 보냄
-						data : {currentPage : currentPage},
-						//성공할 시 해당내용 실행
-						success : function(json) { //서블릿에서 json 파일로 저장해서 보낸것을 자바스크립트 객체로 변경
-							//로그 디버깅
-							console.log(json);
-							console.log("success!");
-							//json의 값을 순서대로 꺼내서 c에 넣음
-							for(let c of json){
-								//html 입력 table에 countryId, country, lastUpdate 출력
-								let html = "<tr><td>"+c.countryId+"</td><td>"
-											+c.country+"</td><td>"
-											+c.lastUpdate+"</td></tr>";
-								//list의 내부 끝에 html의 값 삽입
-								$("#list").append(html);
-							}
-						}
-					});
-				}
-			});
-		});
+		//aside.html include
+		$("#aside").load("/sakila/aside.html");
 	</script>
+	
+<script>
+	let currentPage = 1;
+	
+	$.ajax({
+		url : "/sakila/address/selectCountryList",
+		method : "POST",
+		data : {"currentPage" : currentPage},
+		success : function(json) {//json파일->>자바스크립트에 객체로 변경				
+			console.log("json::>>" + json);
+			for (let i = 0; i < json.length; i++) {
+				let html = "<tr>" + "<td>"
+						+ json[i].countryId
+						+ "</td><td>"
+						+ json[i].country
+						+ "</td><td>"
+						+ json[i].lastUpdate
+						+ "</td></tr>";
+				$("#list").append(html);
+			}
+		}
+	});
+	
+	//jQuery객체,메서드 사용,$,$(),button tag에 id인 것
+	$("#addCountry").click(function() {
+				console.log("#addCountry click!!");
+				//let countryValue = $("#country").val();//id가 country 인 value값을 get
+				//document.getElementsById("country").value
+				console.log("country value: " + $("#country").val());
+
+				if ($("#country").val() === "") {
+					alert("나라를 입력하세요!!")
+					return;
+				}
+
+				$.ajax({//html요청->>ajex요청
+					url : "/sakila/address/InsertCountry",
+					method : "POST",
+					data : {
+						country : $("#country").val()
+					},//country로 hash,$(태그 아이디값을 가져온다).val()->value값
+					success : function() {
+						console.log("success!");
+						currentPage = 1;
+						//입력 성공후 리스트를 가져온다.
+						$("#list").empty();
+						$.ajax({
+							url : "/sakila/address/selectCountryList",
+							method : "POST",
+							data : {"currentPage" : currentPage},
+							success : function(json) {//json파일->>자바스크립트에 객체로 변경				
+								console.log("json::>>" + json);
+								for (let i = 0; i < json.length; i++) {
+									let html = "<tr>" + "<td>"
+											+ json[i].country_id
+											+ "</td><td>"
+											+ json[i].country
+											+ "</td><td>"
+											+ json[i].last_update
+											+ "</td></tr>";
+									$("#list").append(html);
+								}
+							}
+						});
+
+					}
+				});
+			});//callback함수,button을 클릭함으로써 익명 함수 function을 
+	//실행(함수에 실행 내용은 콘솔창에 출력)
+</script>
 </html>
