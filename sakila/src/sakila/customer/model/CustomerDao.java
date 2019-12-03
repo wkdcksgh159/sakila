@@ -17,9 +17,9 @@ public class CustomerDao {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		//customer 전체목록 불러오는 쿼리
-		String sql = "SELECT customer_id, store_id, first_name, last_name, email, address_id, active, create_date, last_update" + 
-				"FROM customer" + 
-				"ORDER BY customer_id DESC" + 
+		String sql = "SELECT customer_id, store_id, first_name, last_name, email, address_id, active, create_date, last_update " + 
+				"FROM customer " + 
+				"ORDER BY customer_id DESC " + 
 				"LIMIT 10";
 		try {
 			stmt = conn.prepareStatement(sql);
@@ -31,9 +31,9 @@ public class CustomerDao {
 				customer.setFirstName(rs.getString("first_name"));
 				customer.setLastName(rs.getString("last_name"));
 				customer.setEmail(rs.getString("email"));
-				customer.setAddressId(rs.getInt("addressId"));
+				customer.setAddressId(rs.getInt("address_id"));
 				customer.setActive(rs.getInt("active"));
-				customer.setCreateDate(rs.getString("createDate"));
+				customer.setCreateDate(rs.getString("create_date"));
 				customer.setLastUpdate(rs.getString("last_update"));
 				list.add(customer);
 			}

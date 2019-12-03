@@ -27,7 +27,6 @@ public class SelectCustomerListAll extends HttpServlet {
 		//customer 전체 목록 리스트
 		customerService = new CustomerService();
 		List<Customer> list = customerService.selectCustomerListAll();
-		
 		System.out.println("list : "+list);
 		
 		//리스트를 json 타입으로 변환
@@ -35,7 +34,6 @@ public class SelectCustomerListAll extends HttpServlet {
 		String gsonList = gson.toJson(list);
 		response.getWriter().write(gsonList);
 		
-		return;
 	}
 
 }

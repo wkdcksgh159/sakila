@@ -6,7 +6,7 @@ public class DBHelper {
 	public static Connection getConnection() throws Exception {
 		//db접속
 		Class.forName("org.mariadb.jdbc.Driver");
-		Connection conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/wkdcksgh159","wkdcksgh159","cksgh159!");
+		Connection conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/sakila","root","java1234");
 		return conn;
 	}
 	//종료method

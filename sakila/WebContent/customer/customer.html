@@ -144,7 +144,7 @@ body {
 
 <script>
 	$.ajax({//Customer select
-		url:"/SelectCustomerListAll",
+		url:"/sakila/SelectCustomerListAll",
 		method:"post",
 		success:function(json){
 			console.log("SelectCustomerListAll 요청 성공!");
@@ -185,7 +185,7 @@ body {
 				//address값
 			},
 			success : function() {
-				colsole.log("success");
+				console.log("success");
 			}
 		});
 	});
