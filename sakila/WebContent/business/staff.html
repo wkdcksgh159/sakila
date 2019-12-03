@@ -41,19 +41,60 @@
 	
 	</div>
 	<div id="section">
-		<h1>Staff</h1>
+		<h1>Store</h1>
 		<div>
-			<form>
-				<fieldset>
-					<legend>안녕</legend>
-				</fieldset>
-			</form>
+			<h2>add Store</h2>
+			
+		</div>
+		<div>
+			<h2>Store list</h2>
+			<table border="1">
+				<thead>
+					<tr>
+						<th>staff_id</th>
+						<th>first_name</th>
+						<th>last_name</th>
+						<th>address_id</th>
+						<th>email</th>
+						<th>store_id</th>
+						<th>active</th>
+						<th>user_name</th>
+						<th>password</th>
+						<th>last_update</th>
+					</tr>
+				</thead>
+				<tbody id="staffSelectListAll">
+					
+				</tbody>
+			</table>
 		</div>
 	</div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
-		// aside.html include
-		$("#aside").load("/sakila/aside.html");
+	// aside.html include
+	$("#aside").load("/sakila/aside.html");
+</script>
+<script>
+	$.ajax({
+		url:"/sakila/StaffSelectListAll",
+		method:"POST",
+		success:function(json){
+			console.log("StaffSelectListAll 서블릿 호출 성공!");
+			$(json).each(function(index, item){
+				temp = "<tr><td>"+item.staffId+"</td>";
+				temp += "<td>"+item.firstName+"</td>";
+				temp += "<td>"+item.lastName+"</td>";
+				temp += "<td>"+item.addressId+"</td>";
+				temp += "<td>"+item.eMail+"</td>";
+				temp += "<td>"+item.storeId+"</td>";
+				temp += "<td>"+item.active+"</td>";
+				temp += "<td>"+item.userName+"</td>";
+				temp += "<td>"+item.password+"</td>";
+				temp += "<td>"+item.lastUpdate+"</td></tr>";
+				$("#staffSelectListAll").append(temp);
+			});
+		}
+	});
 </script>
 </html>

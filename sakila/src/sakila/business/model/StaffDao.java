@@ -17,13 +17,33 @@ public class StaffDao {
 		List<Staff> list = new ArrayList<Staff>();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		String sql = "select * from staff order by staff_id";
+		String sql = "select staff_id,"
+				+ " first_name,"
+				+ " last_name,"
+				+ " address_id,"
+				+ " email,"
+				+ " store_id,"
+				+ " active,"
+				+ " username,"
+				+ " password,"
+				+ " last_update"
+				+ " from staff order by staff_id";
 		try {
 			stmt = conn.prepareStatement(sql);
 			rs = stmt.executeQuery();
 			while(rs.next()) {
 				staff = new Staff();
-				staff.set
+				staff.setStaffId(rs.getInt("staff_id"));
+				staff.setFirstName(rs.getString("first_name"));
+				staff.setLastName(rs.getString("last_name"));
+				staff.setAddressId(rs.getInt("address_id"));
+				staff.seteMail(rs.getString("email"));
+				staff.setStoreId(rs.getInt("store_id"));
+				staff.setActive(rs.getInt("active"));
+				staff.setUserName(rs.getString("username"));
+				staff.setPassword(rs.getString("password"));
+				staff.setLastUpdate(rs.getString("last_update"));
+				list.add(staff);
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
