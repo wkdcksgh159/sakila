@@ -1,4 +1,4 @@
-package sakila.business;
+package sakila.business.model;
 
 public class Rental {
 	private int rentalId;

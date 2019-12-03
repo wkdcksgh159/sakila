@@ -1,4 +1,4 @@
-package sakila.business;
+package sakila.business.model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

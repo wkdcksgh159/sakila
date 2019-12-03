@@ -1,4 +1,4 @@
-package sakila.business;
+package sakila.business.model;
 
 public class Staff {
 	private int staffId;
