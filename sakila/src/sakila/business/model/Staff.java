@@ -1,10 +1,12 @@
 package sakila.business.model;
 
+import sakila.address.model.Address;
+
 public class Staff {
 	private int staffId;
 	private String firstName;
 	private String lastName;
-	private int addressId;
+	private Address address;
 	//private 
 	private String eMail;
 	private int storeId;
@@ -30,11 +32,11 @@ public class Staff {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public int getAddressId() {
-		return addressId;
+	public Address getAddress() {
+		return address;
 	}
-	public void setAddressId(int addressId) {
-		this.addressId = addressId;
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 	public String geteMail() {
 		return eMail;
@@ -74,8 +76,9 @@ public class Staff {
 	}
 	@Override
 	public String toString() {
-		return "Staff [staffId=" + staffId + ", firstName=" + firstName + ", lastName=" + lastName + ", addressId="
-				+ addressId + ", eMail=" + eMail + ", storeId=" + storeId + ", active=" + active + ", userName="
+		return "Staff [staffId=" + staffId + ", firstName=" + firstName + ", lastName=" + lastName + ", address="
+				+ address + ", eMail=" + eMail + ", storeId=" + storeId + ", active=" + active + ", userName="
 				+ userName + ", password=" + password + ", lastUpdate=" + lastUpdate + "]";
 	}
+	
 }

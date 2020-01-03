@@ -4,26 +4,34 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+import sakila.address.model.Address;
 import sakila.db.DBHelper;
 
 public class StaffDao {
 	private Staff staff;
-	public List<Staff> StoreSelectListAll(Connection conn) {
-		System.out.println("StoreSelectListAll Dao 실행 확인! ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
+	public List<Staff> StaffSelectListAll(Connection conn) {
+		System.out.println("StaffSelectListAll Dao 실행 확인! ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
 		List<Staff> list = new ArrayList<Staff>();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		String sql = "select * from staff order by staff_id";
+		String sql = "select sf.staff_id as staffId, sf.first_name as firstName, sf.last_name as lastName, sf.email as eMail, a.address as address, sf.username as userName " + 
+				"from staff sf " + 
+				"inner join address a on sf.address_id = a.address_id";
 		try {
 			stmt = conn.prepareStatement(sql);
 			rs = stmt.executeQuery();
 			while(rs.next()) {
 				staff = new Staff();
-				staff.set
+				staff.setStaffId(rs.getInt("staffId"));
+				staff.setFirstName(rs.getString("firstName"));
+				staff.setLastName(rs.getString("lastName"));
+				staff.seteMail(rs.getString("eMail"));
+				staff.setAddress(new Address());
+				staff.getAddress().setAddress(rs.getString("address"));
+				staff.setUserName(rs.getString("userName"));
+				list.add(staff);
 			}
 		} catch(Exception e) {
 			e.printStackTrace();

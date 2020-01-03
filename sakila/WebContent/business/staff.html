@@ -4,37 +4,6 @@
 <title>sakila index</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-	body {
-		padding: 0;
-		margin: 0;
-		width: 100%;
-		height: 100%;
-		overflow: hidden;
-		background-position: 0 0;
-		background-repeat: no-repeat;
-		background-attachment: fixed;
-		background-size: cover;
-		position: relative;
-		overflow-y: auto;
-		display:inline-block
-	}
-	
-	#aside {
-		width: 200px;
-		height: 3000px;
-		position: fixed;
-		background: orange;
-		overflow: hidden;
-		float: left;
-	}
-	
-	#section {
-		margin-left: 300px;
-		background: white;
-	}
-	
-</style>
 </head>
 <body>
 	<div id="aside">
@@ -42,18 +11,47 @@
 	</div>
 	<div id="section">
 		<h1>Staff</h1>
+		<h2>Staff list</h2>
 		<div>
-			<form>
-				<fieldset>
-					<legend>안녕</legend>
-				</fieldset>
-			</form>
+			<table>
+				<thead>
+					<tr>
+						<th>staff_id</th>
+						<th>first_name</th>
+						<th>last_name</th>
+						<th>email</th>
+						<th>address</th>
+						<th>user_name</th>
+					</tr>
+				</thead>
+				<tbody id="staffListALl">
+				
+				</tbody>
+			</table>
 		</div>
 	</div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
-		// aside.html include
-		$("#aside").load("/sakila/aside.html");
+	// aside.html include
+	$("#aside").load("/sakila/aside.html");
+	
+	$.ajax({
+		url:"/sakila/StaffSelectListAll",
+		method:"POST",
+		success:function(json){
+			console.log("StaffSelectListAll 요청 성공!");
+			console.log(json);
+			$(json).each(function(index, item){
+				temp = "<tr><td>"+item.staffId+"</td>";
+				temp += "<td>"+item.firstName+"</td>";
+				temp += "<td>"+item.lastName+"</td>";
+				temp += "<td>"+item.eMail+"</td>";
+				temp += "<td>"+item.address.address+"</td>";
+				temp += "<td>"+item.userName+"</td></tr>";
+				$("#staffListALl").append(temp);
+			});
+		}
+	});
 </script>
 </html>

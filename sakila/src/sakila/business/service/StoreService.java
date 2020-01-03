@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
 
+import sakila.business.model.Staff;
 import sakila.business.model.StoreDao;
 import sakila.db.DBHelper;
 
