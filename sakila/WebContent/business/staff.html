@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>sakila index</title>
+<title>staff</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -10,14 +10,9 @@
 	
 	</div>
 	<div id="section">
-<<<<<<< HEAD
 		<h1>Staff</h1>
 		<h2>Staff list</h2>
-=======
-		<h1>Store</h1>
->>>>>>> refs/remotes/origin/master
 		<div>
-<<<<<<< HEAD
 			<table>
 				<thead>
 					<tr>
@@ -30,31 +25,6 @@
 					</tr>
 				</thead>
 				<tbody id="staffListALl">
-				
-=======
-			<h2>add Store</h2>
-			
-		</div>
-		<div>
-			<h2>Store list</h2>
-			<table border="1">
-				<thead>
-					<tr>
-						<th>staff_id</th>
-						<th>first_name</th>
-						<th>last_name</th>
-						<th>address_id</th>
-						<th>email</th>
-						<th>store_id</th>
-						<th>active</th>
-						<th>user_name</th>
-						<th>password</th>
-						<th>last_update</th>
-					</tr>
-				</thead>
-				<tbody id="staffSelectListAll">
-					
->>>>>>> refs/remotes/origin/master
 				</tbody>
 			</table>
 		</div>
@@ -64,7 +34,6 @@
 <script>
 	// aside.html include
 	$("#aside").load("/sakila/aside.html");
-<<<<<<< HEAD
 	
 	$.ajax({
 		url:"/sakila/StaffSelectListAll",
@@ -80,27 +49,6 @@
 				temp += "<td>"+item.address.address+"</td>";
 				temp += "<td>"+item.userName+"</td></tr>";
 				$("#staffListALl").append(temp);
-=======
-</script>
-<script>
-	$.ajax({
-		url:"/sakila/StaffSelectListAll",
-		method:"POST",
-		success:function(json){
-			console.log("StaffSelectListAll 서블릿 호출 성공!");
-			$(json).each(function(index, item){
-				temp = "<tr><td>"+item.staffId+"</td>";
-				temp += "<td>"+item.firstName+"</td>";
-				temp += "<td>"+item.lastName+"</td>";
-				temp += "<td>"+item.addressId+"</td>";
-				temp += "<td>"+item.eMail+"</td>";
-				temp += "<td>"+item.storeId+"</td>";
-				temp += "<td>"+item.active+"</td>";
-				temp += "<td>"+item.userName+"</td>";
-				temp += "<td>"+item.password+"</td>";
-				temp += "<td>"+item.lastUpdate+"</td></tr>";
-				$("#staffSelectListAll").append(temp);
->>>>>>> refs/remotes/origin/master
 			});
 		}
 	});

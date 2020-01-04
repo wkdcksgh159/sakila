@@ -2,7 +2,7 @@ package sakila.inventory.model;
 
 import sakila.business.model.Store;
 
-public class inventory {
+public class Inventory {
 	private int inventoryId;
 	private Film film;
 	private Store store;

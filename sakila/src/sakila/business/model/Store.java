@@ -1,9 +1,11 @@
 package sakila.business.model;
 
+import sakila.address.model.Address;
+
 public class Store {
 	private int storeId;
 	private int managerStaff;
-	private int addressId;
+	private Address address;
 	private String lastUpdate;
 	public int getStoreId() {
 		return storeId;
@@ -17,11 +19,11 @@ public class Store {
 	public void setManagerStaff(int managerStaff) {
 		this.managerStaff = managerStaff;
 	}
-	public int getAddressId() {
-		return addressId;
+	public Address getAddress() {
+		return address;
 	}
-	public void setAddressId(int addressId) {
-		this.addressId = addressId;
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 	public String getLastUpdate() {
 		return lastUpdate;
@@ -31,8 +33,8 @@ public class Store {
 	}
 	@Override
 	public String toString() {
-		return "Store [storeId=" + storeId + ", managerStaff=" + managerStaff + ", addressId=" + addressId
-				+ ", lastUpdate=" + lastUpdate + "]";
+		return "Store [storeId=" + storeId + ", managerStaff=" + managerStaff + ", address=" + address + ", lastUpdate="
+				+ lastUpdate + "]";
 	}
 	
 }

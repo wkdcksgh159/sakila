@@ -11,10 +11,77 @@
 	<div id="section">
 		<h1>inventory</h1>
 		<h2>inventory list</h2>
+		<table>
+			<thead>
+				<tr>
+					<th>inventory_id</th>
+					<th>film_id</th>
+					<th>title</th>
+					<th>store_id</th>
+					<th>store address</th>
+					<th>last_update</th>
+				</tr>
+			</thead>
+			<tbody id="inventoryListAll">
+				
+			</tbody>
+		</table>
+		<button type="button" id="prevBtn">이전</button>
+		<button type="button" id="nextBtn">다음</button>
 	</div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
 	$("#aside").load("/sakila/aside.html");
+	
+	let currentPage = 1;
+	let rowPerPage = 20;
+	$("#prevBtn").hide();
+// 	$("#nextBtn").hide();
+	
+	inventoryListAll = function(currentPage) {
+		$.ajax({
+			url:"/sakila/InventorySelectListAll",
+			method:"POST",
+			data:{"currentPage":currentPage,"rowPerPage":rowPerPage},
+			success:function(json){
+				$("#inventoryListAll").empty();
+				$(json).each(function(index, item){
+					temp = "<tr><td>"+item.inventoryId+"</td>";
+					temp += "<td>"+item.film.filmId+"</td>";
+					temp += "<td>"+item.film.title+"</td>";
+					temp += "<td>"+item.store.storeId+"</td>";
+					temp += "<td>"+item.store.address.address+"</td>";
+					temp += "<td>"+item.lastUpdate+"</td>";
+					$("#inventoryListAll").append(temp);
+				});
+			}
+		});
+	}
+	
+	inventoryListAll(currentPage);
+	
+	if(currentPage > 1) {
+		$("#prevBtn").show();
+	}
+// 	if(currentPage < lastPage) {
+// 		$("#nextBtn").show();
+// 	}
+	
+	$("#prevBtn").click(function(){
+		currentPage = currentPage - 1;
+		inventoryListAll(currentPage);
+		if(currentPage == 1) {
+			$("#prevBtn").hide();
+		}
+	});
+	
+	$("#nextBtn").click(function(){
+		currentPage = currentPage + 1;
+		inventoryListAll(currentPage);
+		if(currentPage > 1) {
+			$("#prevBtn").show();
+		}
+	});
 </script>
 </html>
